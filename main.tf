@@ -8,7 +8,7 @@ module "securitygroup" {
 
 module "opsmanager" {
   source = "./modules/opsmanager"
-  ami = "ami-0274e11dced17bb5b"
+  ami = "ami-0094635555ed28881"
   instance_type = "t2.xlarge"
   key_name = "${var.key_name}"
   private_key = "${file("~/.aws/sepp_renfer_awskey_mongodb.pem")}"
