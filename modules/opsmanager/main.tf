@@ -1,5 +1,5 @@
 resource "aws_instance" "opsman_demo" {
-  count = "${var.count}"
+  count = "${var.repl_count}"
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
@@ -43,6 +43,6 @@ resource "aws_instance" "opsman_demo" {
 }
 
 resource "aws_eip" "opsman_ip" {
-  count = "${var.count}"
+  count = "${var.repl_count}"
   instance = "${element(aws_instance.opsman_demo.*.id, count.index)}"
 }
