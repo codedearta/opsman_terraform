@@ -2,7 +2,7 @@ variable "region" {
   default = "eu-west-2"
 }
 variable "key_name" {
-  default = "sepp_renfer_awskey_mongodb"
+  default = "srenfer_mdb_aws_key"
 }
 
 variable "repl_count" { default = 3 }
