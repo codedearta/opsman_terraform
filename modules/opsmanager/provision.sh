@@ -53,8 +53,8 @@ function installOpsManager()
 {
     echo "----  installOpsManager ----"
     # install OpsManager
-    curl -O https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-4.0.6.50317.20181210T1346Z-1.x86_64.rpm
-    sudo rpm -ivh  mongodb-mms-4.0.6.50317.20181210T1346Z-1.x86_64.rpm
+    curl -O https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-6.0.15.100.20230614T1851Z.x86_64.rpm
+    sudo rpm -ivh mongodb-mms-6.0.15.100.20230614T1851Z.x86_64.rpm
 }
 
 function createHeadDbFolder()
