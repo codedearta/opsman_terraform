@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-west-2" 
+  region = "eu-west-1" 
 }
 
 module "securitygroup" {
@@ -8,11 +8,11 @@ module "securitygroup" {
 
 module "opsmanager" {
   source = "./modules/opsmanager"
-  ami = "ami-0094635555ed28881"
+  ami = "ami-0ca7795427fb03aa0"
   instance_type = "t2.xlarge"
   key_name = "${var.key_name}"
-  private_key = "${file("~/.aws/sepp_renfer_awskey_mongodb.pem")}"
-  name = "opsmanager"
+  private_key = "${file("~/.ssh/srenfer_mdb_aws_key.pem")}"
+  name = "opsmanager ${count.index}"
   count = "${var.repl_count}"
 }
 
@@ -24,7 +24,7 @@ resource "null_resource" "opsmanager" {
   }
 
   provisioner "local-exec" {
-    command = "echo export 'opsman${count.index}=${element(module.opsmanager.private_dns, count.index)}' >> export_private_dns_names.sh"
+    command = "echo export 'opsman${count.index}=${module.opsmanager.*.private_dns[count.index][0]}' >> export_private_dns_names.sh"
   }
 
   provisioner "file" {
@@ -62,9 +62,9 @@ resource "null_resource" "opsmanager" {
   }
 
   connection {
-    host = "${element(module.opsmanager.ip, count.index)}"
+    host = "${tostring(module.opsmanager.*.public_dns[count.index][0])}"
     type = "ssh"
     user = "ec2-user"
-    private_key = "${file("~/.aws/sepp_renfer_awskey_mongodb.pem")}"
+    private_key = "${file("~/.ssh/srenfer_mdb_aws_key.pem")}"
   }
 }

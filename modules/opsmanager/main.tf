@@ -5,8 +5,10 @@ resource "aws_instance" "opsman_demo" {
   key_name = "${var.key_name}"
 
   security_groups = ["opsman_demo"]
-  tags {
-    Name = "${var.name}-${count.index}"
+  tags = {
+    Name = "${var.name}"
+    owner = "sepp.renfer@mongodb.com"
+    expire-on = "2023-07-20"
   }
 
   provisioner "file" {
@@ -39,10 +41,11 @@ resource "aws_instance" "opsman_demo" {
     type = "ssh"
     user = "ec2-user"
     private_key = "${var.private_key}"
+    host = "${aws_instance.opsman_demo[count.index].public_dns}"
   }
 }
 
-resource "aws_eip" "opsman_ip" {
-  count = "${var.repl_count}"
-  instance = "${element(aws_instance.opsman_demo.*.id, count.index)}"
-}
+# resource "aws_eip" "opsman_ip" {
+#   count = "${var.repl_count}"
+#   instance = "${element(aws_instance.opsman_demo.*.id, count.index)}"
+# }
