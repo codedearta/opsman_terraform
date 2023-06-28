@@ -5,4 +5,4 @@ variable "key_name" {
   default = "sepp_renfer_awskey_mongodb"
 }
 
-variable "count" { default = 3 }
+variable "repl_count" { default = 3 }

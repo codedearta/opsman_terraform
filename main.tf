@@ -13,11 +13,11 @@ module "opsmanager" {
   key_name = "${var.key_name}"
   private_key = "${file("~/.aws/sepp_renfer_awskey_mongodb.pem")}"
   name = "opsmanager"
-  count = "${var.count}"
+  count = "${var.repl_count}"
 }
 
 resource "null_resource" "opsmanager" {
-  count = "${var.count}"
+  count = "${var.repl_count}"
 
   provisioner "local-exec" {
     command = "echo '#!/bin/bash' > export_private_dns_names.sh"
